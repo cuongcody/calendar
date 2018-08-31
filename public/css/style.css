@@ -1,0 +1,39 @@
+body {
+    margin: 40px 10px;
+    padding: 0;
+    font-family: "Lucida Grande",Helvetica,Arial,Verdana,sans-serif;
+    font-size: 14px;
+  }
+
+  #calendar {
+    max-width: 900px;
+    margin: 0 auto;
+  }
+ .fc-h-event {
+     position: relative;
+ }
+  .closeon {
+    display: block;
+    background: red;
+    font-weight: bold;
+    /* text-align: center; */
+    width: 5px;
+    padding: 0 10px;
+    border-radius: 12%;
+    margin-left: 90px;
+    color: white;
+
+  }
+
+  .edit-btn {
+    float:right;
+    display: block;
+    background: blue;
+    font-weight: bold;
+    /* text-align: center; */
+    width: 15px;
+    padding: 0 20px;
+    border-radius: 12%;
+    margin-left: 60px;
+    color: white;
+  }
