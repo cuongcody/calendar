@@ -29,4 +29,14 @@ class Database extends Common {
         $this->db->close();    
     }
 
+    public function beginTransaction()
+    {
+        $this->db->begin_transaction();
+    }
+
+    public function rollBackTransaction()
+    {
+        $this->db->rollback();
+    }
+
 }
