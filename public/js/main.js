@@ -2,7 +2,7 @@ $(document).ready(function () {
     
       $.ajax({
           type: "get",
-          url: "?req=home/all_ajax",
+          url: "?req=home/allAjax",
           data: "data",
           dataType: "json",
           success: function (response) {
@@ -24,7 +24,7 @@ $(document).ready(function () {
                             element.find(".closeon").click(function() {
                                 $.ajax({
                                     type: "post",
-                                    url: "?req=home/delete_ajax",
+                                    url: "?req=home/deleteAjax",
                                     data: {id: event.id},
                                     dataType: "json",
                                     success: function (response) {

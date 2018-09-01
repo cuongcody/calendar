@@ -3,14 +3,17 @@
 /*
 * class contains database management functions used all over the script
 */
-class Database extends Common {
+class Database extends Common
+{
 
     protected $db;
-    function __construct(){
+    function __construct()
+    {
         $this->openDatabaseConnection();
     }
 
-    function __destruct() {
+    function __destruct()
+    {
         $this->closeDatabaseConnection();
     }
 
@@ -21,12 +24,12 @@ class Database extends Common {
             echo "Failed to connect to MySQL: " . $this->db->connect_error;
             die();
         }
-        $this->db->set_charset(DB_CHARSET);     
+        $this->db->set_charset(DB_CHARSET);
     }
 
     private function closeDatabaseConnection()
     {
-        $this->db->close();    
+        $this->db->close();
     }
 
     public function beginTransaction()
@@ -38,5 +41,4 @@ class Database extends Common {
     {
         $this->db->rollback();
     }
-
 }
