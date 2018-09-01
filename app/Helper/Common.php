@@ -3,7 +3,8 @@
 /*
 * class contains common functions used allover the script
 */
-class Common {
+class Common
+{
 
 
 }

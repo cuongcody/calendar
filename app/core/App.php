@@ -1,6 +1,7 @@
 <?php
 
-class App{
+class App
+{
 
 
     /*
@@ -10,28 +11,28 @@ class App{
     protected $method = 'index';
     protected $params = [];
 
-    public function __construct(){
+    public function __construct()
+    {
     
-        /* 
+        /*
         * GET request should be in the following form : URL/language/controller/method/parameters
         */
         
         //getting the request parameters
         $req = $this->parseUrl();
-        if(file_exists('../app/controllers/' . $req[0] . '.php')){
+        if (file_exists('../app/controllers/' . $req[0] . '.php')) {
             $this->controller = $req[0];
             unset($req[0]);
-        }    
+        }
 
         require_once '../app/controllers/' . $this->controller . '.php';
         $this->controller = new $this->controller;
 
-        if(isset($req[1])){
-            if(method_exists($this->controller,$req[1])){
+        if (isset($req[1])) {
+            if (method_exists($this->controller, $req[1])) {
                 $this->method = $req[1];
                 unset($req[1]);
             }
-
         }
         $this->params = $req ? array_values($req): [];
 
@@ -39,10 +40,10 @@ class App{
         call_user_func_array([$this->controller,$this->method], $this->params);
     }
 
-    public function parseUrl(){
-        if(isset($_GET['req'])){
-            return $req = explode('/',filter_var(rtrim($_GET['req'],'/'),FILTER_SANITIZE_URL));
+    public function parseUrl()
+    {
+        if (isset($_GET['req'])) {
+            return $req = explode('/', filter_var(rtrim($_GET['req'], '/'), FILTER_SANITIZE_URL));
         }
     }
-
 }

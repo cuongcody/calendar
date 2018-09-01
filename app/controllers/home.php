@@ -1,26 +1,31 @@
 <?php
 
-class Home extends Controller{
+class Home extends Controller
+{
 
-    public function index(){
+    public function index()
+    {
         $this->view('home/index', ['title' => 'Home page' ]);
     }
 
-    public function all_ajax(){
+    public function allAjax()
+    {
         header('Content-Type: application/json');
         $index = $this->model('Index');
         $works = $index->all();
         echo json_encode(['status_code' => 200, 'works' => $works ]);
     }
 
-    public function add() {
+    public function add()
+    {
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $data = $_POST;
-            if (empty($data['title']) || empty($data['start_date']) || empty($data['end_date']) || strtotime($data['end_date']) < strtotime($data['start_date'])) {
+            if (empty($data['title']) || empty($data['start_date'])
+            || empty($data['end_date'])
+            || strtotime($data['end_date']) < strtotime($data['start_date'])) {
                 $this->view('home/details', ['title' => 'Add', 'message' => "Wrong input" ]);
-            }
-            else {
+            } else {
                 $work['start_date'] = strtotime($data['start_date']);
                 $work['end_date'] = strtotime($data['end_date']);
                 $work['title'] = $data['title'];
@@ -28,46 +33,47 @@ class Home extends Controller{
                 $index = $this->model('Index');
                 $result = $index->insert($work);
                 return $result ? $this->view('home/details', ['title' => 'Add', 'message' => 'Success' ]) : $this->view('home/details', ['title' => 'Add', 'message' => "Error" ]);
-
             }
-        }
-        else {
+        } else {
             $this->view('home/details', ['title' => 'Add' ]);
         }
     }
 
-    public function edit($id) {
+    public function edit($id)
+    {
         $index = $this->model('Index');
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $data = $_POST;
             $work = $index->get($id);
-            if (empty($data['title']) || empty($data['start_date']) || empty($data['end_date']) || strtotime($data['end_date']) < strtotime($data['start_date'])) {
+            if (empty($data['title']) || empty($data['start_date'])
+            || empty($data['end_date'])
+            || strtotime($data['end_date']) < strtotime($data['start_date'])) {
                 $this->view('home/update', ['title' => 'Update', 'work' => $work, 'message' => "Wrong input" ]);
-            }
-            else {
+            } else {
                 $work['start_date'] = strtotime($data['start_date']);
                 $work['end_date'] = strtotime($data['end_date']);
                 $work['title'] = $data['title'];
                 $result = $index->update($id, $work);
                 return $result ? $this->view('home/index', ['title' => 'Home page', 'message' => 'Update successfully' ]) : $this->view('home/update', ['title' => 'Update', 'work' => $work, 'message' => "Error" ]);
-
             }
-        }
-        else {
+        } else {
             $work = $index->get($id);
             return $work ? $this->view('home/update', ['title' => 'Update', 'work' => $work ]) : $this->view('home/details', ['title' => 'Add' ]);
         }
     }
 
-    public function delete_ajax(){
+    public function deleteAjax()
+    {
         header('Content-Type: application/json');
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $data = $_POST;
             $index = $this->model('Index');
             $result = $index->delete($data['id']);
-            if ($result) echo json_encode(['status_code' => 200, 'message' => "Success" ]);
-            else echo json_encode(['status_code' => 500, 'message' => "Error" ]);
+            if ($result) {
+                echo json_encode(['status_code' => 200, 'message' => "Success" ]);
+            } else {
+                echo json_encode(['status_code' => 500, 'message' => "Error" ]);
+            }
         }
-
     }
 }
